@@ -1,9 +1,13 @@
 # Survival Prediction in Liver Cirrhosis Patients Using LiverJAC Model – Deep Neural Networks
+## 👥 Authors
 
+- [**Julius Rey Gida**](24-01013@g.batstate-u.edu.ph) 
+- [**Christine Joy Lao**]() 
+- [**Allainer Reyes**](24-01741@g.batstate-u.edu.ph) 
 This repository contains the implementation of LIVERJAC, a deep neural network model design for predicting survival outcomes for patients with liver cirrhosis.
 It used Pytorch for training and evaluation.
 
-## Methodology
+### Methodology
 
 **Requirements**
 - Python 3.x
