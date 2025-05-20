@@ -8,12 +8,12 @@ It used Pytorch for training and evaluation.
 ## Methodology
 
 **Requirements**
- Python 3.x
- PyTorch
- scikit-learn
- pandas
- numpy
- matplotlib
+- Python 3.x
+- PyTorch
+- scikit-learn
+- pandas
+- numpy
+- matplotlib
 
 
 ### Data Preprocessing
