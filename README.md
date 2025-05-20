@@ -172,7 +172,7 @@ After testing several fine-tuning strategies, we found that the original configu
 
 **Here’s what stood out:**
 - He initialization, batch normalization, and dropout (at 0.3) worked together to stabilize training and prevent overfitting.
-- alanced loss weighting (pos_weight = 1.5) was crucial to handle the class imbalance without skewing the predictions.
+- Balanced loss weighting (pos_weight = 1.5) was crucial to handle the class imbalance without skewing the predictions.
 - Patience of 10 gave the model just enough time to learn while avoiding unnecessary training.
 
 ### Future directions:
