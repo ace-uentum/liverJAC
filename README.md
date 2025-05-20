@@ -129,12 +129,12 @@ print(classification_report(y_test, (y_pred_prob >= threshold_for_recall).astype
 ### Experiments & Fine-Tuning Strategies
 Here are five fine-tuning strategies our group has explored to test their impact on performance. The original model settings already performed well, so these experiments were designed to explore trade-offs and potential improvements.
 
-**Original Setup (Best Performance)**
-**Learning Rate: 0.001**
-**Dropout Rate: 0.3**
-**Batch Size: 32**
-**Early Stopping Patience: 10**
-**Class Imbalance Weight: pos_weight = 1.5**
+- **Original Setup (Best Performance)**
+- **Learning Rate: 0.001**
+- **Dropout Rate: 0.3**
+- **Batch Size: 32**
+- **Early Stopping Patience: 10**
+- **Class Imbalance Weight: pos_weight = 1.5**
 
 ### Slowing Down the Learning Rate
 ```python
