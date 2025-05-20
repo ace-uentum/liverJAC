@@ -10,7 +10,7 @@
 - This repository contains the implementation of LIVERJAC, a deep neural network model design for predicting survival outcomes for patients with liver cirrhosis.
   It used Pytorch for training and evaluation.
 
-### Methodology
+## Methodology
 
 **Requirements**
 - Python 3.x
