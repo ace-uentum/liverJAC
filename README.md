@@ -163,7 +163,7 @@ Original smaller batches worked better for this dataset.
 ### Giving the Model More Patience
 
 patience = 15  - here Original was 10
-Early stopping patience increased from 10 to 15. Let the model try harder before stopping. But longer training sometimes led to overfitting. 
+- Early stopping patience increased from 10 to 15. Let the model try harder before stopping. But longer training sometimes led to overfitting. 
 The original patience of 10 hit a better result.
 
 ### Adjusting for Class Imbalance
