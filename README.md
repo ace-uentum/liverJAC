@@ -176,11 +176,11 @@ However, the original 1.5 balance gave better precision-recall results.
 After testing several fine-tuning strategies, we found that the original configuration—with a moderate learning rate, balanced dropout, reasonable batch size, and early stopping—consistently yielded the best results in terms of accuracy, AUC, and generalization.
 
 **Here’s what stood out:**
-He initialization, batch normalization, and dropout (at 0.3) worked together to stabilize training and prevent overfitting.
-alanced loss weighting (pos_weight = 1.5) was crucial to handle the class imbalance without skewing the predictions.
-Patience of 10 gave the model just enough time to learn while avoiding unnecessary training.
+-He initialization, batch normalization, and dropout (at 0.3) worked together to stabilize training and prevent overfitting.
+-alanced loss weighting (pos_weight = 1.5) was crucial to handle the class imbalance without skewing the predictions.
+-Patience of 10 gave the model just enough time to learn while avoiding unnecessary training.
 
 ### Future directions:
-Try more advanced techniques like focal loss or SMOTE for better class imbalance handling.
-Explore ensemble methods (combining predictions from multiple models).
-Use automated hyperparameter tuning libraries like Optuna or Ray Tune for even better parameter optimization.
+-Try more advanced techniques like focal loss or SMOTE for better class imbalance handling.
+-Explore ensemble methods (combining predictions from multiple models).
+-Use automated hyperparameter tuning libraries like Optuna or Ray Tune for even better parameter optimization.
