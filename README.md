@@ -1,7 +1,5 @@
 # Survival Prediction in Liver Cirrhosis Patients Using LiverJAC Model – Deep Neural Networks
 
-This repository contains the implementation of **LiverJAC**, a deep neural network designed to predict survival outcomes for patients with liver cirrhosis. The model leverages clinical data and uses PyTorch for training and evaluation.
-
 This repository contains the implementation of LIVERJAC, a deep neural network model design for predicting survival outcomes for patients with liver cirrhosis.
 It used Pytorch for training and evaluation.
 
@@ -36,9 +34,9 @@ This splits prevent data leakage and ensures a proper model evaluation
 
 The model is a deep neural network with three fully connected layers, each followed by:
 
-**Batch Normalization**: stabilizes and accelerates training by normalizing activations, reducing internal covariate shift.
-**ReLU Activation**: introduces non-linearity.
-**Dropout (0.3 rate)**: randomly disables neurons during training to prevent overfitting by encouraging redundancy.
+- **Batch Normalization**: stabilizes and accelerates training by normalizing activations, reducing internal covariate shift.
+- **ReLU Activation**: introduces non-linearity.
+- **Dropout (0.3 rate)**: randomly disables neurons during training to prevent overfitting by encouraging redundancy.
 
 Weights are initialized using **He initialization** for efficient training. *Kaiming He*
 
@@ -76,11 +74,11 @@ class LiverJAC(nn.Module):
         return x
 ```
 ### Training Process
-Loss Function: BCEWithLogitsLoss with class weighting to address class imbalance.
-Optimizer: AdamW, which combines Adam optimization with weight decay for regularization.
-Learning Rate Scheduler: Reduces learning rate on plateau to fine-tune learning.
-Early Stopping: Training stops if validation loss doesn’t improve after 10 epochs, avoiding overfitting.
-Batch Size: 32 samples per batch, shuffled for better generalization.
+- Loss Function: BCEWithLogitsLoss with class weighting to address class imbalance.
+- Optimizer: AdamW, which combines Adam optimization with weight decay for regularization.
+- Learning Rate Scheduler: Reduces learning rate on plateau to fine-tune learning.
+- Early Stopping: Training stops if validation loss doesn’t improve after 10 epochs, avoiding overfitting.
+- Batch Size: 32 samples per batch, shuffled for better generalization.
 ```python
 for epoch in range(epochs):
     model.train()
@@ -93,10 +91,10 @@ for epoch in range(epochs):
 
 ```
 ### Evaluation and Threshold Selection
-Predictions are probabilistic outputs (sigmoid applied).
-Precision-Recall Curve used to identify the best threshold maximizing F1-score.
-Additionally, a threshold is chosen to ensure at least 80% recall, prioritizing sensitivity (detecting as many deaths as possible).
-Final evaluation includes accuracy, AUC, confusion matrix, and detailed classification reports.
+- Predictions are probabilistic outputs (sigmoid applied).
+- Precision-Recall Curve used to identify the best threshold maximizing F1-score.
+- Additionally, a threshold is chosen to ensure at least 80% recall, prioritizing sensitivity (detecting as many deaths as possible).
+- Final evaluation includes accuracy, AUC, confusion matrix, and detailed classification reports.
 
 ```python
 from sklearn.metrics import precision_recall_curve, classification_report
@@ -117,12 +115,9 @@ else:
 print(classification_report(y_test, (y_pred_prob >= threshold_for_recall).astype(int)))
 ```
 **IMPORTANT NOTES**
--Batch Normalization helps reduce internal covariate shift, making training faster and more stable.
--Choosing 80% recall prioritizes correctly identifying patients who will not survive, important in medical contexts where missing a positive case has high cost.
--Dropout mitigates overfitting by randomly disabling neurons during training, which encourages the network to learn robust patterns rather than noise.
- 
- 
-### Experiments & Fine-Tuning Strategies
+- Batch Normalization helps reduce internal covariate shift, making training faster and more stable.
+- Choosing 80% recall prioritizes correctly identifying patients who will not survive, important in medical contexts where missing a positive case has high cost.
+- Dropout mitigates overfitting by randomly disabling neurons during training, which encourages the network to learn robust patterns rather than noise.
 
 ### Experiments & Fine-Tuning Strategies
 Here are five fine-tuning strategies our group has explored to test their impact on performance. The original model settings already performed well, so these experiments were designed to explore trade-offs and potential improvements.
