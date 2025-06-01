@@ -142,7 +142,7 @@ These results underscore the potential of incorporating advanced deep learning a
 E. Dickson, P. Grambsch, T. Fleming, L. Fisher, and A. Langworthy. "Cirrhosis Patient Survival Prediction," UCI Machine Learning Repository, 1989. [Online]. Available: https://doi.org/10.24432/C5R02G.
 
 ## Academic Context
-- Course: Machine Learning (Master of Science in Information Technology)
+- Course: Machine Learning (Master in Information Technology)
 - Institution: Batangas State University
 - Professor: Dr. Montalbo
 - Term: 2nd Semester, Academic Year 2024–2025
