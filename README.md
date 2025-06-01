@@ -16,7 +16,7 @@ tools that are reliable and data-driven to help with informed clinical decisions
 with Gating, a deep neural network model trained using clinical and laboratory information from the cirrhosis.csv
 dataset. The model features multi-head self-attention to look at prior sequences of features in addition to using dynamic
 feature gating to improve interpretability and performance.The model was trained following rigorous data
-preprocessing with the use of five-fold cross validation for validation. The performance of the deep learning model indicated an average accuracy of 80% with an AUC of 0.83.
+preprocessing with the use of five-fold cross validation for validation. The performance of the deep learning model indicated an average accuracy of 81% with an AUC of 0.83.
 The new model outperformed traditional methods including the MELD and Child-Pugh scores. All three of the most influential features linked to predicting survival were
 significant clinical measures (bilirubin, albumin, and prothrombin time). The study provides evidence that deep learning models such as LiverJAC-MHA can provide more
 accurate and interpretable survival predictors for cirrhosis, and thus have a lot of potential towards helping clinical pathways to provide individualized care for patients and
@@ -125,8 +125,8 @@ To evaluate the prognostic performance of our proposed model, LiverJAC-MHA (a De
 The evaluation metrics included Accuracy, Area Under the Receiver Operating Characteristic Curve (AUC), Precision, Recall (Sensitivity), and F1-score. These metrics were selected to comprehensively assess both overall model performance and its sensitivity to the minority class, which in clinical prognosis is critical for identifying at-risk patients.
 The table below summarizes the performance comparison:
 | Model               | Accuracy | AUC  | Precision | Recall (Sens) | F1   |
-|---------------------|---------|------|-----------|--------------|------|
-| JAC-MHA            | 0.807   | 0.83 | 0.767     | 0.767        | 0.754 |
+|---------------------|---------|------|-----------|--------------|-------|
+| JAC-MHA            | 0.807   | 0.830 | 0.767     | 0.767        | 0.754 |
 | MELD               | 0.707   | 0.787 | 0.586     | 0.793        | 0.672 |
 | Child-Pugh         | 0.699   | 0.749 | 0.584     | 0.76         | 0.658 |
 | Logistic Regression | 0.79   | 0.833 | 0.818     | 0.587        | 0.675 |
