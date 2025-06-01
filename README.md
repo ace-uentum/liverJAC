@@ -42,7 +42,81 @@ The dataset (`cirrhosis.csv`) is a cleaned version of a publicly available clini
 ## Tools:
 - Python with PyTorch and Sklearn
 - Developed and tested in Google Colab
+---
+## Code Overview
+### Model Architecture with Multi-Head Attention
+```python  
+class LiverJAC_MHA(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim, num_heads, dropout):
+        super(LiverJAC_MHA, self).__init__()
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.attention = nn.MultiheadAttention(embed_dim=hidden_dim, num_heads=num_heads)
+        self.dropout = nn.Dropout(dropout)
+        self.fc2 = nn.Linear(hidden_dim, output_dim)
+        self.sigmoid = nn.Sigmoid()
 
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = x.unsqueeze(0)  # For multi-head attention input shape (L, N, E)
+        attn_output, _ = self.attention(x, x, x)
+        attn_output = attn_output.squeeze(0)
+        out = self.dropout(attn_output)
+        out = self.fc2(out)
+        return self.sigmoid(out)
+``` 
+### Custom Loss Function Penalizing False Negatives
+```python
+class FalseNegativeLoss(nn.Module):
+    def __init__(self, fn_weight=5.0):
+        super(FalseNegativeLoss, self).__init__()
+        self.fn_weight = fn_weight
+        self.bce = nn.BCELoss()
+
+    def forward(self, outputs, targets):
+        bce_loss = self.bce(outputs, targets)
+        fn_mask = (targets == 1) & (outputs < 0.5)
+        fn_penalty = self.fn_weight * fn_mask.float().mean()
+        return bce_loss + fn_penalty
+```
+### Data Splitting with Stratified 5-Fold Cross-Validation
+Model initialization, training, and validation steps...
+```python
+skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+for fold, (train_index, val_index) in enumerate(skf.split(X, y)):
+    X_train, X_val = X[train_index], X[val_index]
+    y_train, y_val = y[train_index], y[val_index]
+```
+### Bootstrapped Confidence Interval Calculation for Metrics
+```python
+def bootstrap_ci(metric_fn, y_true, y_pred, n_bootstraps=1000, alpha=0.95):
+    bootstrapped_scores = []
+    for _ in range(n_bootstraps):
+        indices = np.random.choice(len(y_true), len(y_true), replace=True)
+        score = metric_fn(y_true[indices], y_pred[indices])
+        bootstrapped_scores.append(score)
+    sorted_scores = np.sort(bootstrapped_scores)
+    lower = np.percentile(sorted_scores, ((1 - alpha) / 2) * 100)
+    upper = np.percentile(sorted_scores, (alpha + (1 - alpha) / 2) * 100)
+    return lower, upper
+
+accuracy_ci = bootstrap_ci(accuracy_score, y_true, y_pred)
+```
+
+### Confusion Matrix Plotting
+```python
+def plot_confusion_matrix(cm, classes):
+    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.colorbar()
+    plt.title('Confusion matrix')
+    plt.xticks(np.arange(len(classes)), classes)
+    plt.yticks(np.arange(len(classes)), classes)
+    plt.xlabel('Predicted label')
+    plt.ylabel('True label')
+    plt.show()
+
+cm = confusion_matrix(y_val, y_pred_bin)
+plot_confusion_matrix(cm, classes=['Survived', 'Died'])
+```
 ## Models Implemented
 - **LiverJAC-MHA** vs tradional scoring method : MELD & Child-pugh
 - **Logistic Regression**
@@ -66,10 +140,12 @@ The MELD and Child-Pugh scores, although standard in hepatology, underperformed 
 LiverJAC-MHA's self-attention mechanism and MELD score integration likely contributed to its improved recall and F1, especially in handling nuanced interactions among features.
 These results underscore the potential of incorporating advanced deep learning architectures with clinically relevant features for more accurate and actionable prognosis in liver cirrhosis patients. Future work may explore external validation on independent cohorts and integration with real-time electronic health records.
 
+## Citations
+E. Dickson, P. Grambsch, T. Fleming, L. Fisher, and A. Langworthy. "Cirrhosis Patient Survival Prediction," UCI Machine Learning Repository, 1989. [Online]. Available: https://doi.org/10.24432/C5R02G.
 
 ## Academic Context
 - Course: Machine Learning (Master of Science in Information Technology)
-- Institution: [Batangas State University]
+- Institution: Batangas State University
 - Professor: Dr. Montalbo
 - Term: 2nd Semester, Academic Year 2024–2025
 
