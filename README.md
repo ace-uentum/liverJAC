@@ -64,19 +64,17 @@ class LiverJAC_MHA(nn.Module):
         out = self.fc2(out)
         return self.sigmoid(out)
 ``` 
-### Custom Loss Function Penalizing False Negatives
+### Dynamic Gating
 ```python
-class FalseNegativeLoss(nn.Module):
-    def __init__(self, fn_weight=5.0):
-        super(FalseNegativeLoss, self).__init__()
-        self.fn_weight = fn_weight
-        self.bce = nn.BCELoss()
-
-    def forward(self, outputs, targets):
-        bce_loss = self.bce(outputs, targets)
-        fn_mask = (targets == 1) & (outputs < 0.5)
-        fn_penalty = self.fn_weight * fn_mask.float().mean()
-        return bce_loss + fn_penalty
+class DynamicFeatureGating(nn.Module):
+    def __init__(self, input_dim):
+        super().__init__()
+        self.gate = nn.Linear(input_dim, input_dim)
+        nn.init.xavier_uniform_(self.gate.weight)
+        nn.init.zeros_(self.gate.bias)
+    def forward(self, x):
+        gate = torch.sigmoid(self.gate(x))
+        return x * gate
 ```
 ### Data Splitting with Stratified 5-Fold Cross-Validation
 Model initialization, training, and validation steps...
